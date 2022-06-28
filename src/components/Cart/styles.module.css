@@ -1,5 +1,6 @@
 .cartButton {
   position: relative;
+  cursor: pointer;
 }
 
 .cartButton img {
@@ -19,3 +20,55 @@
   text-align: center;
   border-radius: 12px;
 }
+.close{
+  border: none;
+  background-color: inherit;
+  color: gray;
+  margin-left: 84%;
+  font-size: 13px;
+}
+.openedCart{
+    border: none;
+    position: absolute;
+    top: 100%;
+    left: 69%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+}
+table{
+  width: 400px;
+  
+}
+
+thead {
+  width: 100%;
+  
+}
+.img{
+  width: 20px;
+}
+.forLine{
+  border-bottom: 1px solid lightgray;
+}
+.shapka{
+  border-bottom: 1px solid black;
+}
+.plus{
+  border: 1px solid lightblue;
+  background-color: white;
+}
+.minus{
+  border: 1px solid lightblue;
+  background-color: white;
+}
+.delBtn{
+  border: 1px solid red;
+  color: red;
+  background-color: white;
+}
+
+
+
+
+

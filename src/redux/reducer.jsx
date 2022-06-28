@@ -1,3 +1,5 @@
+import { createReducer, createAction } from "@reduxjs/toolkit"
+
 const initialState = {
   products: [
     {
@@ -102,19 +104,62 @@ const initialState = {
   ],
 };
 
-export const shopReducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+export const plus = createAction('plus')
+export const minus = createAction('minus')
+export const del = createAction('del')
+export const add = createAction('add')
 
-// Эту функцию трогать не стоит! Она написана, чтобы ты мог в консоле
-// наблюдать за тем, какие экшены выполняются и как меняется стейт
-const logger = (reducer) => (state, action) => {
-  console.log(`action: ${JSON.stringify(action)}`, state);
+export const shopReducer = createReducer(initialState, (builder)=>{
+      builder
+        .addCase(del, (state, action)=>{
+          state.cartItems = state.cartItems.filter((element, index)=> element.productId !== action.payload)
+        })
+        .addCase(plus, (state, action)=>{
+          state.cartItems = state.cartItems.map((el)=>{
+            if (el.productId === action.payload) {
+              el.amount +=1
+              return el
+            }
+            return el
+          })
+          state.products = state.products.map((el)=>{
+            if (el.id === action.payload) {
+              el.left -=1
+              return el
+            }
+            return el
+          })
+        })
+        .addCase(minus, (state, action)=>{
+          state.cartItems = state.cartItems.map((el)=>{
+            if (el.productId === action.payload) {
+              
+              el.amount -=1
+              return el
+            }
+            return el
+          })
+          state.products = state.products.map((el)=>{
+            if (el.id === action.payload) {
+              if(state.cartItems.amount !== 1) {
+              el.left +=1
+            }}
+            return el
+          })
+        })
+        .addCase(add, (state, action)=>{
+          state.cartItems.push({id: state.cartItems.length + 1, productId: action.payload.id, amount: 1 })
+        
+          state.products = state.products.map((el)=>{
+            if(el.id === action.payload.id){
+              el.left -= 1
+              return el
+            }
+            return el
+          })
+        })
+})
 
-  return reducer(state, action);
-};
 
-export default logger(shopReducer);
+
+
